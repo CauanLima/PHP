@@ -1,14 +1,11 @@
 <?php 
+		session_start();
+		unset($_SESSION['idUsuario']);
+		unset($_SESSION['email']);
       require_once ($_SERVER['DOCUMENT_ROOT'].'/Classes/usuarios.php');
       require_once ($_SERVER['DOCUMENT_ROOT'].'/DAO/usuariosDAO.php');
-      
-session_start();
-    unset($_SESSION['idUsuario']);
-    unset($_SESSION['email']);
     $usuarios = new usuarios();
-    
     if (isset($_POST['f_mail']) AND isset($_POST['f_senha'])){
-        
         $usuarios->setEmail($_POST['f_mail']);
         $usuarios->setSenha($_POST['f_senha']);
         $usuariosDAO = new usuariosDAO();
