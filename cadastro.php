@@ -13,7 +13,7 @@
 	<body>
 	<style>
 		body{
-			overflow: hidden;
+			overflow-x: hidden;
 		}
 	</style>
 	
@@ -25,9 +25,6 @@
 	    if(isset($_POST['f_selecao'])){ 
 	        $selecao = $_POST['f_selecao'];
 	        if($selecao == 'Excluir'){
-	            $v_usuario->setId($_POST['f_id']);
-	            $usuDAO->delete($_POST['f_id']);
-	            
 	            echo "<div class = container>";
 			    echo  "<div class = row justify-content-center>";
 			    echo"<div class = col-4>";
@@ -68,7 +65,7 @@
 			    echo  "<div class = row justify-content-center>";
 			    echo"<div class = col-4>";
 			    echo "<div class = card p-3>";
-			    echo "<form method=POST action=atualizar.php>";
+			    echo "<form method=POST action=/CONTROL/Control.php>";
 			    echo "<div class = form-row>";
 			    echo "<div class = col-12>";
 			    echo "<labeL>Nome:</label>";
@@ -94,6 +91,7 @@
 			    echo "</select>";
 			    echo "</div>";
 			    echo "<div class = col-12 my-3>";
+			    echo "<input type=hidden name=acao value=atualizar>";
 			    echo "<input class = btn btn-outline-dark type=submit value=Atualizar>";
 			    echo "</div>";
 			    echo "</div>";
@@ -103,10 +101,7 @@
 			    echo "</div>";
 		        echo "</div>";
 		    }else if($selecao == 'resetar'){
-		        $v_usuario->setId($_POST['f_id']);
-		        $v_usuario->setSenha('123456');
-		        $usuDAO->_construct($v_usuario);
-		        $usuDAO->resetSenha();
+		        
 		    echo "<div class = container>";
 			    echo  "<div class = row justify-content-center>";
 			    echo"<div class = col-4>";
@@ -136,17 +131,11 @@
 			    echo "</div>";
 		        echo "</div>";
 	        }else{
-	            $v_usuario->setNome($_POST['f_nome']);
-		        $v_usuario->setEmail($_POST['f_mail']);
-		        $v_usuario->setSenha($_POST['f_senha']);
-		        $v_usuario->setIdPerfil($_POST['perfil']);
-		        $usuDAO->_construct($v_usuario);
-		        $usuDAO->insert();
 	            echo "<div class = container>";
 			    echo  "<div class = row justify-content-center>";
 			    echo"<div class = col-4>";
 			    echo "<div class = card p-3>";
-			    echo "<form method=POST action=".$_SERVER['PHP_SELF'].">";
+			    echo "<form method=POST action=/CONTROL/Control.php>";
 			    echo "<input type = hidden name = f_selecao value = Incluir>";
 			    echo "<div class = form-row>";
 			    echo "<div class = col-12>";
@@ -183,8 +172,9 @@
 			echo  "<div class = row justify-content-center>";
 			echo"<div class = col-4>";
 			echo "<div class = card p-3>";
-			echo "<form method=POST action=".$_SERVER['PHP_SELF'].">";
+			echo "<form method=POST action=/CONTROL/Control.php>";
 			echo "<input type = hidden name = f_selecao value = Incluir>";
+			echo "<input type=hidden name=acao value=incluir>";
 			echo "<div class = form-row>";
 			echo "<div class = col-12>";
 			echo "<labeL>Nome:</label>";
@@ -259,15 +249,17 @@
 						        </form>      
 						    </td>
 						    <td>
-						        <form method= "POST" action ="<?php echo $_SERVER['PHP_SELF']; ?>">
+						        <form method= "POST" action ="/CONTROL/Control.php">
 						            <input type = "hidden" name = "f_selecao" value = "Excluir">
 						            <input class = "btn btn-outline-dark" type="submit" value="Excluir">
 						            <input type = "hidden" name = "f_id" value = "<?php echo $usu->getId();  ?>">
+						            <input type = "hidden" name = "acao" value = "excluir">
 						        </form>
 						    </td>
 						    <td>
-						       <form method= "POST" action ="<?php echo $_SERVER['PHP_SELF']; ?>">
+						       <form method= "POST" action ="/CONTROL/Control.php">
 						            <input type = "hidden" name = "f_selecao" value = "resetar">
+						            <input type = "hidden" name = "acao" value = "resetar">
 						            <input class = "btn btn-outline-dark" type="submit" value="Resetar">
 						            <input type = "hidden" name = "f_id" value = "<?php echo $usu->getId();  ?>">
 						        </form>     

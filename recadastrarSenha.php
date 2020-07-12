@@ -1,18 +1,5 @@
-<?php require_once ($_SERVER['DOCUMENT_ROOT'].'/DAO/usuariosDAO.php');
-$usuarios = new usuarios();
-session_start();
-if(isset($_POST['atualizarSenha'])){
-    $usuDAO = new usuariosDAO();
-    $usuarios->setId($_POST['f_id']);
-    $usuarios->setSenha($_POST['f_senha']);
-    $usuDAO->_construct($usuarios);
-    $usuDAO->resetSenha();
-    Header("Location:index.php");
-}else{
-    recadastro();
-}
-
-    function recadastro( ){
+<?php 
+        session_start();
         echo "<html>";
         echo "<head>";
         echo "<meta http-equiv=Content-Type content=text/html; charset=UTF-8>";
@@ -29,18 +16,18 @@ if(isset($_POST['atualizarSenha'])){
         echo "</br>";
         echo "</br>";
         echo "<div class=jumbotron >";
-        echo "<form method=POST action=$_SERVER[PHP_SELF]>";
+        echo "<form method=POST action=/CONTROL/Control.php>";
         echo "<input type = hidden value = $_SESSION[idUsuario] name = f_id>";
 		echo "<label>Email:</label>";
 		echo "<input class = form-control type=text name=f_mail value=$_SESSION[email] disabled>";
 		echo "<label>Redefinir Senha:</label>";
 		echo "<input class = form-control type=password name=f_senha>";
 	    echo "<center><input class = btn btn-outline-dark type=submit name = atualizarSenha value=Salvar></center>";
+		echo "<input type=hidden name=acao value=novaSenha >";
 		echo "</form>";
 		echo "</div>";
 	    echo "</div>"; //  fim da class 4 
 		echo "</div>"; // Fim da classe container
 		echo "</body>";
 		echo "</html>";
-    }
 ?>
